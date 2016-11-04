@@ -1,0 +1,263 @@
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+%Settings for Code block
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=bash,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+% Code block setting ends
+
+
+\begin{document}
+\begin{titlepage}
+
+
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%   TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries eSim code documentation}\\[0.4cm] % Title of your document
+{\small v1.1.2}
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%   AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\Large \emph{Author:}\\
+Fahim Khan\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%   DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%   LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics{fossee-logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\begin{abstract}
+eSim (previously known as Oscad / FreeEDA) is an open source EDA tool for circuit design, simulation, analysis and PCB design. It is an integrated tool built using open source software such as KiCad (http://www.kicad-pcb.org) and Ngspice (http://ngspice.sourceforge.net/). eSim is released under GPL.
+
+eSim offers similar capabilities and ease of use as any equivalent proprietary software for schematic creation, simulation and PCB design, without having to pay a huge amount of money to procure licenses. Hence it can be an affordable alternative to educational institutions and SMEs. It can serve as an alternative to commercially available/ licensed software tools like OrCAD, Xpedition and HSPICE..
+\end{abstract}
+
+\newpage
+% \pagebreak
+
+\section{Prerequisite}
+
+eSim has following dependency. 
+
+\begin{enumerate}
+	\item Software Package
+		\begin{itemize}
+			\item Python 2.7
+			\item PyQt4
+			\item Matplotlib
+			\item numpy
+		\end{itemize}
+
+	\item Open source tool
+		\begin{itemize}
+			\item Python 2.7
+			\item PyQt4
+			\item Matplotlib
+			\item numpy
+		\end{itemize}
+\end{enumerate}
+
+% \begin{table}[htb]
+% \centering
+% % \begin{tabular}{l|r}
+% % Package & Version \\\hline
+% % Node JS & 6.0.0 \\
+% % Python & 2.7 \\
+% % ngspice & 26 or 27 \\
+% % pm2 & 1.1.3
+% % \end{tabular}
+% \caption{\label{tab:widgets}Package Details}
+% \end{table}
+
+% The eSim web application can be run with Node JS 5.x.x as well as 6.0.0. It is upto you which version you want to install. NgSpice can be installed from synaptic instead of compiling from source code.
+
+\newpage
+
+\section{eSim installation}
+
+	eSim is available for Ubuntu and Windows(7,8,10).
+
+\subsection{Ubuntu}
+	\begin{enumerate}
+
+		\item Download eSim installer for Linux from http://esim.fossee.in/downloads to
+		a local directory and unpack it.
+		You can also unpack the installer through the terminal. 
+		Open the terminal and navigate to the directory where this INSTALL file is located. 
+		Use the following command to unpack:
+
+		\begin{lstlisting}
+			unzip eSim-1.1.2.zip 
+		\end{lstlisting}
+
+		\item To install eSim and other dependecies run the following command.
+
+		\begin{lstlisting}
+			../install-linux.sh --install
+		\end{lstlisting}
+
+		\item Once the eSim is installed, you can open it from the terminal.
+
+		\begin{lstlisting}
+			esim
+		\end{lstlisting}
+
+		or you can double click on eSim icon created on the Desktop after installation.
+
+	\end{enumerate}
+
+
+\subsection{Windows}
+	\begin{enumerate}
+		\item Download eSim windows installer from website http://esim.fossee.in/downloads
+		\item Open eSim-Windows-Installer folder, right click on Setup file and select run
+		as administrator. Click Yes and Next to complete the installation.
+		\item eSim icon will be created on deskop. You can double click on the eSim icon
+		created on the Desktop after installation.
+	\end{enumerate}
+
+
+\newpage
+
+\section{eSim Modules}
+
+eSim code is divied into modules based on the functionality. All modules are under `src` folder of eSim.
+
+To run eSim application from command line. Open command line intepreter and go to the location under src/frontend
+
+Now run the below command to open eSim window.
+
+\begin{lstlisting}
+	python Application.py 			
+\end{lstlisting}
+
+\subsection{frontEnd}
+This package contain main gui modules of eSim. All main window compoenet such as Project explorer,Dock area,workspace are present in this package.
+
+\subsubsection{Application.py}
+This file contain main function. The main function initiate the Application class as well as instantiate workspace module where user can define the workspace location where all the project will be stored.
+
+\begin{itemize}
+	\item Class Application : This class is repponsible for initiating all the neccessary class. Also it creates the gui for tool bar and menu bar. The function details are as follows.
+	\begin{itemize}
+		\item initToolBar(): This initiate the tool bar.
+		\item closeEvent(event): This function close the event. Event can be any process or widget.
+		\item close\_project(): It close the project and clear all the variable which hold project information.
+		\item new\_project(): It creates new project in eSim and add the information in project explorer. If project is already open then it overwrite project related variable with new project information. 
+		\item open\_project(): It open the project and add it to project explorer.
+		\item help\_project(): It open the eSim user manual.
+
+		\item open\_ngspice(): It execute the ngspice netlist of current project. And also open the Python plotting window inside dock area. If the netlist is not present then it will throw an exception.
+		\item open\_subcircuit(): It open sub circuit widget inside the dock area.
+
+		\item open\_nghdl(): It opens the nghdl widget where user can upload the nghdl model. Nghdl has to be installed before using it in eSim. You can install it independently as well as along with eSim installation.
+		\item open\_modelEditor(): It opens model editor widget in the dock area.
+		\item open\_OMedit(): This function call ngspice to OM edit converter and then launch OM edit provided OM edit is installed in the machine. OMEdit and OMOptim is part of Open modelica tool which needs to be installed separately.
+		\item open\_OMoptim(): This function open the OM Optim (optimization tool of Open Modellica)
+	\end{itemize}
+
+	\item Class MainView : This class set the main view of window. It add note area, split the widget and complete the layout management for frontend. Also it initialze the DockArea and Project Explorer.
+\end{itemize}
+
+\subsubsection{Workspace.py}
+
+This module create workspace window where user can browse to his/her desired workspace location. The default workspace location is in home directory.
+
+\begin{itemize}
+	\item Class Workspace : This create the workspace window which appear on the top of main window.
+	\begin{itemize}
+		\item initWorkspace(): This create gui of Workspace widget.
+		\item defaultWorkspace(): This function select default workspace location.
+		\item returnWhetherClickedOrNot(): It checked if it is clicked or not.
+		\item createWorkspace(): If press ok then it creats proper workspace location
+		\item browseLocation(): This function return the path/location which user has selected.
+		
+	\end{itemize}
+
+\end{itemize}
+
+
+\subsubsection{DockArea.py}
+
+This module is responisble to create widget inside dock area.
+
+\begin{itemize}
+	\item Class DockArea : Responsible for instantiating the dock widget.
+	\begin{itemize}
+		\item createTestEditor(): This function is for testing new widget inside dock area.
+		\item plottingEditor(): This function creates the python plotting widget inside dock area.
+		\item ngspiceEditor(): This function open the ngspice editor but not in dock area.
+		\item modelEditor(): This function create the model editor widget and instatiate the Model editor class.
+		\item kicadToNgspiceEditor(): This function create the kicad to ngspice converter widget.
+		\item subcircuiteditor(): This function create the widget for sub circuir.
+		\item usermanual(): This function create the widget for user manual.
+		\item modelicaEditor() : This function create the widget for Modellica Editor from where user can open OMEdit and OMOptim.
+		\item closeDock(): This function is called when any dock widget is closed.
+		
+	\end{itemize}
+
+\end{itemize}
+\newpage
+
+\subsection{browser}
+This package is responsible for openning user manual in browser.
+
+\subsubsection{UserManual.py}
+This module open the user manual in web browser using python webbrowser package.
+
+\subsubsection{Welcome.py}
+This module creates the eSim welcome page.
+
+\end{document}
+              
